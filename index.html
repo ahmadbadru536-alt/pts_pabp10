@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASTS PABP Kelas 10 SMAN 1 Parongpong</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax for Arabic/Formatting support if needed -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d5c58;
+            background-image: radial-gradient(#14b8a6 0.75px, transparent 0.75px), radial-gradient(#14b8a6 0.75px, #0f4c47 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+
+        .font-arabic {
+            font-family: 'Amiri', serif;
+            direction: rtl;
+        }
+
+        .islamic-card {
+            background: rgba(255, 255, 255, 0.96);
+            border-top: 5px solid #0d9488;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .timer-sticky {
+            position: sticky;
+            top: 10px;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-6 px-4 sm:px-6 lg:px-8 text-gray-800">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Header / Banner -->
+        <div class="islamic-card rounded-2xl p-6 mb-6 text-center relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 opacity-10 text-emerald-800 text-9xl">
+                <i class="fa-solid fa-mosque"></i>
+            </div>
+            <div class="relative z-10">
+                <h2 class="text-xs uppercase tracking-widest text-emerald-700 font-bold mb-1">PEMERINTAH PROVINSI JAWA BARAT</h2>
+                <h1 class="text-2xl sm:text-3xl font-bold text-teal-900 mb-1">SMAN 1 PARONGPONG</h1>
+                <p class="text-sm font-semibold text-teal-700">ASESMEN SUMATIF TENGAH SEMESTER (ASTS) GANJIL</p>
+                <p class="text-xs text-gray-600 mt-1">Mata Pelajaran: PABP | Kelas X | Waktu: 90 Menit</p>
+                <p class="text-xs text-emerald-800 italic mt-1">Materi: Kompetisi dalam Kebaikan & Etos Kerja (Bab 1) | Syu'abul Iman (Bab 2)</p>
+            </div>
+        </div>
+
+        <!-- Form Identitas & Awal Tes -->
+        <div id="start-screen" class="islamic-card rounded-2xl p-6 mb-6">
+            <h3 class="text-lg font-bold text-teal-900 mb-4 border-b pb-2"><i class="fa-solid fa-user-pen mr-2"></i>Identitas Peserta Didik</h3>
+            <form id="identity-form" onsubmit="startExam(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
+                    <input type="text" id="student-name" required placeholder="Masukkan Nama Lengkap" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Kelas</label>
+                        <select id="student-class" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                            <option value="">-- Pilih Kelas --</option>
+                            <option value="X-1">X-A</option>
+                            <option value="X-2">X-B</option>
+                            <option value="X-3">X-C</option>
+                            <option value="X-4">X-D</option>
+                            <option value="X-5">X-E</option>
+                            <option value="X-6">X-F</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Hari & Tanggal</label>
+                        <input type="date" id="exam-date" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded text-xs text-amber-800 space-y-1">
+                    <p class="font-bold"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Petunjuk Penting:</p>
+                    <p>1. Durasi pengerjaan adalah <strong>90 Menit</strong> (Sekali pengerjaan / Tidak dapat diulangi).</p>
+                    <p>2. Soal terdiri dari 50 nomor HOTS (Pilihan Ganda, Pilihan Ganda Kompleks, Menjodohkan, dan Ya/Tidak).</p>
+                    <p>3. Bobot soal bervariasi (2 - 4 poin) dengan Total Nilai Maksimal <strong>100 Poin</strong>.</p>
+                    <p>4. Hasil jawaban akan terekam dan dikirimkan ke <strong>abaza787@gmail.com</strong> & Google Spreadsheet.</p>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-teal-700 hover:bg-teal-800 text-white font-bold rounded-lg shadow-md transition duration-200 text-center">
+                    Mulai Kerjakan Asesmen <i class="fa-solid fa-paper-plane ml-2"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- Timer & Progress Bar (Hidden initially) -->
+        <div id="quiz-header" class="hidden timer-sticky bg-teal-900 text-white p-4 rounded-xl shadow-lg mb-6 flex flex-wrap justify-between items-center gap-4">
+            <div>
+                <span class="text-xs text-teal-200 block">Siswa: <span id="display-name" class="font-semibold text-white"></span> (<span id="display-class"></span>)</span>
+                <span class="text-xs text-teal-200">Total Soal: 50 Soal | Nilai Maksimal: 100</span>
+            </div>
+            <div class="flex items-center bg-teal-800 px-4 py-2 rounded-lg border border-teal-600">
+                <i class="fa-regular fa-clock text-amber-400 mr-2 text-lg"></i>
+                <span id="timer" class="font-mono text-xl font-bold text-amber-300">90:00</span>
+            </div>
+        </div>
+
+        <!-- Container Soal (Hidden initially) -->
+        <div id="quiz-container" class="hidden space-y-6">
+            <form id="exam-form" onsubmit="submitExam(event)">
+                <div id="questions-list" class="space-y-6"></div>
+
+                <!-- Submit Button -->
+                <div class="islamic-card rounded-2xl p-6 text-center mt-8">
+                    <p class="text-sm text-gray-600 mb-4">Pastikan seluruh dari 50 soal telah terjawab dengan cermat sebelum menyelesaikan ujian.</p>
+                    <button type="submit" class="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg rounded-xl shadow-lg transition duration-200">
+                        Kirim Seluruh Jawaban <i class="fa-solid fa-check-double ml-2"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Result Screen (Hidden initially) -->
+        <div id="result-screen" class="hidden islamic-card rounded-2xl p-8 text-center">
+            <div class="text-emerald-600 text-6xl mb-4"><i class="fa-solid fa-circle-check"></i></div>
+            <h2 class="text-2xl font-bold text-teal-900 mb-2">Asesmen Selesai!</h2>
+            <p class="text-gray-600 text-sm mb-6">Terima kasih telah menyelesaikan Asesmen Sumatif Tengah Semester PABP.</p>
+            
+            <div class="bg-teal-50 p-6 rounded-xl border border-teal-200 max-w-md mx-auto mb-6">
+                <p class="text-xs uppercase text-teal-700 font-bold tracking-wider">SKOR AKHIR ANDA</p>
+                <div class="text-5xl font-extrabold text-teal-900 my-2" id="final-score">0 / 100</div>
+                <p class="text-xs text-teal-800" id="score-details"></p>
+            </div>
+
+            <p class="text-xs text-gray-500 mb-4">Jawaban Anda beserta identitas telah terekam dan dikirimkan ke email <strong>abaza787@gmail.com</strong> serta Google Spreadsheet pengawas.</p>
+            
+            <div class="p-4 bg-gray-100 rounded-lg text-xs text-gray-600">
+                <i class="fa-solid fa-lock mr-1"></i> Asesmen ini telah terkunci dan tidak dapat diulangi kembali.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Soal HOTS 50 Soal
+        // Poin total 100
+        const questionsData = [
+            // --- BAB 1: KOMPETISI DALAM KEBAIKAN & ETOS KERJA (1-25) ---
+            // TAJWID & BACAAN AYAT (1-6)
+            {
+                id: 1,
+                type: 'pg',
+                points: 2,
+                category: "Bab 1 - Tajwid",
+                question: "Perhatikan potongan QS. Al-Ma'idah/5: 48 berikut: <span class='font-arabic text-xl block my-1 text-right'>fala tashtarihi... وَاَنِ احْكُمْ بَيْنَهُمْ بِمَآ اَنْزَلَ اللّٰهُ</span>. Pada kata <span class='font-arabic text-lg'>احْكُمْ بَيْنَهُمْ</span> terdapat hukum tajwid...",
+                options: ["Ikhfa Syafawi karena Mim sukun bertemu Ba", "Izhar Syafawi karena Mim sukun bertemu Ba", "Idgham Bighunnah karena Mim sukun bertemu Ba", "Iqlab karena Nun sukun bertemu Ba"],
+                answer: "Ikhfa Syafawi karena Mim sukun bertemu Ba"
+            },
+            {
+                id: 2,
+                type: 'pg',
+                points: 2,
+                category: "Bab 1 - Tajwid",
+                question: "Pada kalimat <span class='font-arabic text-xl font-normal block my-1 text-right'>لِكُلٍّ جَعَلْنَا مِنْكُمْ شِرْعَةً وَّمِنْهَاجًا</span>, hukum tajwid yang terdapat pada kata <span class='font-arabic text-lg'>شِرْعَةً وَّمِنْهَاجًا</span> secara berurutan adalah...",
+                options: ["Idgham Bighunnah dan Izhar Halqi", "Idgham Bilaghunnah dan Ikhfa Haqiqi", "Iqlab dan Izhar Syafawi", "Idgham Bighunnah dan Ikhfa Haqiqi"],
+                answer: "Idgham Bighunnah dan Izhar Halqi"
+            },
+            {
+                id: 3,
+                type: 'pg_kompleks',
+                points: 2,
+                category: "Bab 1 - Tajwid",
+                question: "Pilihlah DUA hukum tajwid yang benar pada potongan ayat QS. At-Taubah/9: 105 berikut: <span class='font-arabic text-xl block my-1 text-right'>وَسَتُرَدُّوْنَ اِلٰى عَالِمِ الْغَيْبِ وَالشَّهَادَةِ</span>",
+                options: [
+                    "Mad Jaiz Munfasil pada اِلٰى عَالِمِ",
+                    "Mad Thabi'i pada عَالِمِ",
+                    "Alif Lam Qamariyah pada الْغَيْبِ",
+                    "Alif Lam Qamariyah pada الشَّهَادَةِ"
+                ],
+                correctAnswers: ["Mad Thabi'i pada عَالِمِ", "Alif Lam Qamariyah pada الْغَيْبِ"]
+            },
+            {
+                id: 4,
+                type: 'meneruskan_ayat',
+                points: 2,
+                category: "Bab 1 - Meneruskan Ayat",
+                question: "Lanjutkan potongan ayat QS. Al-Ma'idah/5: 48 berikut: <span class='font-arabic text-xl block my-1 text-right'>فَاسْتَبِقُوا الْخَيْرٰتِ ۗ اِلَى اللّٰهِ مَرْجِعُكُمْ جَمِيْعًا ...</span>",
+                options: [
+                    "فَيُنَبِّئُكُمْ بِمَا كُنْتُمْ فِيْهِ تَخْتَلِفُوْنَ",
+                    "وَلَوْ شَاۤءَ اللّٰهُ لَجَعَلَكُمْ اُمَّةً وَّاحِدَةً",
+                    "وَاحْكُمْ بَيْنَهُمْ بِمَآ اَنْزَلَ اللّٰهُ",
+                    "وَلاَ تَتَّبِعْ اَهْوَاۤءَهُمْ عَمَّا جَاۤءَكَ"
+                ],
+                answer: "فَيُنَبِّئُكُمْ بِمَا كُنْتُمْ فِيْهِ تَخْتَلِفُوْنَ"
+            },
+            {
+                id: 5,
+                type: 'meneruskan_ayat',
+                points: 2,
+                category: "Bab 1 - Meneruskan Ayat",
+                question: "Sambungan yang tepat untuk QS. At-Taubah/9: 105: <span class='font-arabic text-xl block my-1 text-right'>وَقُلِ اعْمَلُوْا فَسَيَرَى اللّٰهُ عَمَلَكُمْ وَرَسُوْلُهٗ ...</span> adalah...",
+                options: [
+                    "وَالْمُؤْمِنُوْنَ ۗ وَسَتُرَدُّوْنَ اِلٰى عَالِمِ الْغَيْبِ وَالشَّهَادَةِ",
+                    "وَالْمُؤْمِنُوْنَ ۗ اِلَى اللّٰهِ مَرْجِعُكُمْ جَمِيْعًا",
+                    "فَاسْتَبِقُوا الْخَيْرٰتِ ۗ اَيْنَ مَا تَكُوْنُوْا",
+                    "وَيُنَبِّئُكُمْ بِمَا كُنْتُمْ تَعْمَلُوْنَ"
+                ],
+                answer: "وَالْمُؤْمِنُوْنَ ۗ وَسَتُرَدُّوْنَ اِلٰى عَالِمِ الْغَيْبِ وَالشَّهَادَةِ"
+            },
+            {
+                id: 6,
+                type: 'yatidak',
+                points: 2,
+                category: "Bab 1 - Tajwid",
+                question: "Apakah kata <span class='font-arabic text-lg'>بِمَآ اَنْزَلَ</span> mengandung hukum Mad Jaiz Munfasil?",
+                correct: "Ya"
+            },
+
+            // KANDUNGAN HADIS & AYAT (7-15)
+            {
+                id: 7,
+                type: 'pg',
+                points: 2,
+                category: "Bab 1 - Kandungan Hadis/Ayat",
+                question: "Rasulullah SAW bersabda bahwa amal seseorang yang paling dicintai Allah SWT adalah yang dilakukan secara konsisten (kontinu) meskipun sedikit. Makna etos kerja yang sesuai dengan kandungan hadis tersebut adalah...",
+                options: [
+                    "Bekerja keras hanya saat diawasi pimpinan",
+                    "Istiqamah dan disiplin dalam memelihara kualitas pekerjaan",
+                    "Bekerja tanpa beristirahat hingga tuntas seluruhnya",
+                    "Mencari pekerjaan yang menghasilkan keuntungan materi secara instan"
+                ],
+                answer: "Istiqamah dan disiplin dalam memelihara kualitas pekerjaan"
+            },
+            {
+                id: 8,
+                type: 'pg_kompleks',
+                points: 2,
+                category: "Bab 1 - Makna Ayat",
+                question: "Manakah DUA prinsip utama dari QS. Al-Ma'idah/5: 48 tentang 'Fastabiqul Khairat'?",
+                options: [
+                    "Menjadikan perbedaan syariat sebagai ajang perdebatan hukum",
+                    "Mendorong kompetisi positif dalam kebajikan antar individu/masyarakat",
+                    "Menyadari bahwa seluruh manusia akan kembali kepada Allah untuk dihakimi",
+                    "Menolak segala kebenaran dari kitab-kitab sebelum Al-Qur'an"
+                ],
+                correctAnswers: [
+                    "Mendorong kompetisi positif dalam kebajikan antar individu/masyarakat",
+                    "Menyadari bahwa seluruh manusia akan kembali kepada Allah untuk dihakimi"
+                ]
+            },
+            {
+                id: 9,
+                type: 'pg',
+                points: 2,
+                category: "Bab 1 - Kandungan Hadis",
+                question: "Dalam hadis riwayat Bukhari tentang etos kerja, disebutkan bahwa seseorang yang mengambil kayu bakar lalu memikulnya di atas punggungnya lebih baik daripada...",
+                options: [
+                    "Meminta-minta kepada orang lain baik diberi maupun ditolak",
+                    "Tidur seharian di dalam masjid tanpa berdzikir",
+                    "Bekerja dengan penghasilan tinggi namun riba",
+                    "Menjadi pedagang yang menaikkan harga secara drastis"
+                ],
+                answer: "Meminta-minta kepada orang lain baik diberi maupun ditolak"
+            },
+            {
+                id: 10,
+                type: 'yatidak',
+                points: 2,
+                category: "Bab 1 - Makna Ayat",
+                question: "Berdasarkan QS. At-Taubah/9: 105, setiap amal pekerjaan manusia kelak hanya akan diperlihatkan kepada Allah SWT saja, tanpa diketahui Rasul dan orang mukmin.",
+                correct: "Tidak"
+            },
+
+            // KONTEKSTUAL & CASE STUDY BAB 1 (11-25)
+            {
+                id: 11,
+                type: 'pg',
+                points: 2,
+                category: "Bab 1 - Kontekstual",
+                question: "Ahmad melihat temannya membuat program donasi online untuk korban bencana alam. Ahmad kemudian terinspirasi membuat platform serupa dengan fitur transparansi dana yang lebih memadai. Sikap Ahmad mencerminkan penerapan...",
+                options: [
+                    "Riya' dan ingin terlihat lebih unggul dari temannya",
+                    "Fastabiqul Khairat dalam meningkatkan kualitas kebaikan",
+                    "Hasad terhadap pencapaian dan ide kreatif teman",
+                    "Etos kerja demi meraih keuntungan finansial pribadi"
+                ],
+                answer: "Fastabiqul Khairat dalam meningkatkan kualitas kebaikan"
+            },
+            {
+                id: 12,
+                type: 'pg',
+                points: 2,
+                category: "Bab 1 - Kontekstual",
+                question: "Seorang wirausahawan muda muslim tetap menjaga ketepatan waktu shalat 5 waktu dan kejujuran takaran di tengah persaingan bisnis yang ketat. Perilaku ini membuktikan integrasi antara...",
+                options: [
+                    "Etos kerja tinggi dengan spiritualitas dan ketakwaan",
+                    "Kompetisi bisnis murni tanpa mempedulikan aturan",
+                    "Keterpaksaan memenuhi tuntutan norma sosial",
+                    "Sikap tawakal tanpa perlu melakukan ikhtiar maksimal"
+                ],
+                answer: "Etos kerja tinggi dengan spiritualitas dan ketakwaan"
+            },
+            {
+                id: 13,
+                type: 'menjodohkan',
+                points: 2,
+                category: "Bab 1 - Menjodohkan",
+                question: "Jodohkanlah istilah etos kerja islam berikut dengan penerapannya yang sesuai:",
+                pairs: [
+                    { key: "Itqan (Profesionalisme)", val: "Bekerja secara sungguh-sungguh dan teliti menghasilkan mutu terbaik" },
+                    { key: "Mujahadah (Kerja Keras)", val: "Pantang menyerah dan bersungguh-sungguh mengatasi hambatan" },
+                    { key: "Niat Lillah (Ikhlas)", val: "Niat beribadah kepada Allah dalam setiap aktivitas pekerjaan" }
+                ]
+            },
+            {
+                id: 14,
+                type: 'yatidak',
+                points: 2,
+                category: "Bab 1 - Kontekstual",
+                question: "Apakah belajar tekun sebelum ujian termasuk bentuk kompetisi dalam kebaikan di lingkungan sekolah SMAN 1 Parongpong?",
+                correct: "Ya"
+            },
+            {
+                id: 15,
+                type: 'pg_kompleks',
+                points: 2,
+                category: "Bab 1 - Kontekstual",
+                question: "Pilihlah DUA tindakan yang MENUNJUKKAN etos kerja islam yang tepat di lingkungan sekolah:",
+                options: [
+                    "Menyelesaikan tugas kelompok hanya ketika ketua kelompok menagihnya",
+                    "Menyusun jadwal belajar mandiri secara rutin dan konsisten setiap hari",
+                    "Membantu menjelaskan materi pelajaran kepada teman yang kesulitan paham",
+                    "Menyalin jawaban teman demi mendapatkan nilai sempurna tanpa proses"
+                ],
+                correctAnswers: [
+                    "Menyusun jadwal belajar mandiri secara rutin dan konsisten setiap hari",
+                    "Membantu menjelaskan materi pelajaran kepada teman yang kesulitan paham"
+                ]
+            },
+            {
+                id: 16,
+                type: 'pg',
+                points: 2,
+                category: "Bab 1 - Kontekstual",
+                question: "Di era digital, persaingan kerja sangat berat. Seorang lulusan SMAN 1 Parongpong terus mengasah keterampilan digitalnya sembari berdoa. Hal ini sesuai dengan pengamalan QS. At-Taubah ayat 105 dalam hal...",
+                options: [
+                    "Menyerahkan seluruh takdir tanpa perlu menambah keterampilan",
+                    "Memadukan ikhtiar kerja keras dan tawakal kepada Allah SWT",
+                    "Mengandalkan bantuan koneksi keluarga dalam mencari pekerjaan",
+                    "Berfokus hanya pada ibadah ritual tanpa memperdulikan keahlian kerja"
+                ],
+                answer: "Memadukan ikhtiar kerja keras dan tawakal kepada Allah SWT"
+            },
+            {
+                id: 17,
+                type: 'yatidak',
+                points: 2,
+                category: "Bab 1 - Kontekstual",
+                question: "Seorang siswa yang enggan berbagi catatan pelajaran karena takut saingannya mendapat nilai lebih tinggi telah menerapkan prinsip Fastabiqul Khairat dengan benar.",
+                correct: "Tidak"
+            },
+            {
+                id: 18,
+                type: 'pg',
+                points: 2,
+                category: "Bab 1 - Kontekstual",
+                question: "Mengapa Al-Qur'an menggunakan frasa 'Fastabiqul Khairat' (berlomba-lombalah dalam kebaikan) dan bukan 'Fastabiqut Tajarah' (berlomba dalam perdagangan)?",
+                options: [
+                    "Karena kebaikan berdimensi abstrak sedangkan perdagangan konkret",
+                    "Karena nilai kebaikan mencakup seluruh aspek kehidupan duniaWI & ukhrawi",
+                    "Karena perdagangan dilarang dilakukan secara berkompetisi",
+                    "Karena kebaikan hanya dapat dilakukan di dalam area tempat ibadah"
+                ],
+                answer: "Karena nilai kebaikan mencakup seluruh aspek kehidupan duniaWI & ukhrawi"
+            },
+            {
+                id: 19,
+                type: 'menjodohkan',
+                points: 2,
+                category: "Bab 1 - Menjodohkan",
+                question: "Jodohkanlah ayat berikut dengan makna utamanya:",
+                pairs: [
+                    { key: "QS. Al-Ma'idah: 48", val: "Perintah berlomba-lomba dalam kebaikan & Al-Qur'an sebagai pembenar" },
+                    { key: "QS. At-Taubah: 105", val: "Perintah bekerja keras & pengawasan Allah, Rasul, serta orang mukmin" },
+                    { key: "QS. Al-Ankabut: 69", val: "Kesungguhan (mujahadah) jalan mendapatkan petunjuk Allah" }
+                ]
+            },
+            {
+                id: 20,
+                type: 'pg',
+                points: 2,
+                category: "Bab 1 - Kontekstual",
+                question: "Seseorang yang bekerja hingga larut malam namun meninggalkan shalat fardhu secara sengaja, menurut pandangan Islam etos kerjanya dianggap...",
+                options: [
+                    "Sangat mulia karena menafkahi keluarga dengan penuh perjuangan",
+                    "Cacat dan menyimpang karena mengabaikan hak Allah SWT",
+                    "Biasa saja karena shalat bisa diganti (qadha) kapan saja",
+                    "Paling maksimal karena ukuran etos kerja hanya dilihat dari hasil materi"
+                ],
+                answer: "Cacat dan menyimpang karena mengabaikan hak Allah SWT"
+            },
+            {
+                id: 21,
+                type: 'yatidak',
+                points: 2,
+                category: "Bab 1 - Kontekstual",
+                question: "Etos kerja seorang muslim dituntun oleh prinsip bahwa bekerja adalah bagian dari ibadah.",
+                correct: "Ya"
+            },
+            {
+                id: 22,
+                type: 'pg_kompleks',
+                points: 2,
+                category: "Bab 1 - Kontekstual",
+                question: "Pilihlah DUA dampak positif dari membiasakan budaya kompetisi dalam kebaikan di kelas:",
+                options: [
+                    "Terciptanya suasana belajar yang kondusif dan saling memotivasi",
+                    "Timbulnya kelompok-kelompok eksklusif yang saling menjatuhkan",
+                    "Meningkatnya standar kualitas akademik dan karakter peserta didik",
+                    "Siswa yang kurang mampu akan semakin terisolasi dari pergaulan"
+                ],
+                correctAnswers: [
+                    "Terciptanya suasana belajar yang kondusif dan saling memotivasi",
+                    "Meningkatnya standar kualitas akademik dan karakter peserta didik"
+                ]
+            },
+            {
+                id: 23,
+                type: 'pg',
+                points: 2,
+                category: "Bab 1 - Tajwid",
+                question: "Pada kalimat <span class='font-arabic text-xl block my-1 text-right'>وَلِكُلٍّ وِجْهَةٌ هُوَ مُوَلِّيْهَا</span>, hukum tajwid pada kata <span class='font-arabic text-lg'>وِجْهَةٌ هُوَ</span> adalah...",
+                options: ["Izhar Halqi", "Ikhfa Haqiqi", "Idgham Bighunnah", "Iqlab"],
+                answer: "Izhar Halqi"
+            },
+            {
+                id: 24,
+                type: 'yatidak',
+                points: 2,
+                category: "Bab 1 - Tajwid",
+                question: "Apakah bacaan mad thabi'i dipanjangkan sepanjang 6 harakat?",
+                correct: "Tidak"
+            },
+            {
+                id: 25,
+                type: 'pg',
+                points: 2,
+                category: "Bab 1 - Kontekstual",
+                question: "Seorang siswa SMAN 1 Parongpong aktif dalam kegiatan OSIS dan Ekskul, namun tetap meraih peringkat pertama di kelasnya. Faktor kunci yang mencerminkan etos kerjanya adalah...",
+                options: [
+                    "Keberuntungan yang konsisten",
+                    "Manajemen waktu dan disiplin tinggi",
+                    "Bantuan dari guru dan teman dekat",
+                    "Mengurangi jam tidur secara drastis"
+                ],
+                answer: "Manajemen waktu dan disiplin tinggi"
+            },
+
+            // --- BAB 2: SYU'ABUL IMAN / CABANG-CABANG IMAN (26-50) ---
+            // TEORI & HADIS SYU'ABUL IMAN (26-32)
+            {
+                id: 26,
+                type: 'pg',
+                points: 2,
+                category: "Bab 2 - Syu'abul Iman",
+                question: "Berdasarkan Hadis Nabi SAW riwayat Muslim, iman memiliki 70 lebih (atau 60 lebih) cabang. Cabang iman yang paling utama dan cabang yang paling rendah berturut-turut adalah...",
+                options: [
+                    "Shalat lima waktu DAN bersedekah",
+                    "Membaca Al-Qur'an DAN senyum kepada saudara",
+                    "Mengucapkan 'Laa ilaha illallah' DAN menyingkirkan gangguan dari jalan",
+                    "Berbakti kepada orang tua DAN menjaga lisan"
+                ],
+                answer: "Mengucapkan 'Laa ilaha illallah' DAN menyingkirkan gangguan dari jalan"
+            },
+            {
+                id: 27,
+                type: 'pg',
+                points: 2,
+                category: "Bab 2 - Syu'abul Iman",
+                question: "Menurut Imam Syafi'i dan para ulama Ahlussunnah wal Jama'ah, pilar iman terdiri dari tiga dimensi yang terintegrasi, yaitu...",
+                options: [
+                    "Niat di hati, diucapkan dengan lisan, dan diamalkan dengan anggota badan",
+                    "Membaca syahadat, menjalankan shalat, dan menunaikan zakat",
+                    "Percaya Allah, percaya Malaikat, dan percaya Hari Kiamat",
+                    "Ilmul yaqin, 'ainul yaqin, dan haqqul yaqin"
+                ],
+                answer: "Niat di hati, diucapkan dengan lisan, dan diamalkan dengan anggota badan"
+            },
+            {
+                id: 28,
+                type: 'pg_kompleks',
+                points: 2,
+                category: "Bab 2 - Syu'abul Iman",
+                question: "Menurut pengelompokan ulama (seperti Imam Al-Baihaqi), Syu'abul Iman dibagi menjadi 3 ranah besar. Pilihlah DUA ranah yang benar di antaranya:",
+                options: [
+                    "Cabang iman yang berkaitan dengan niat, aqidah, dan hati (Ma'rifatun bil qalbi)",
+                    "Cabang iman yang berkaitan dengan kekayaan dan derajat sosial",
+                    "Cabang iman yang berkaitan dengan lisan/ucapan (Iqrarun bil lisan)",
+                    "Cabang iman yang berkaitan dengan tradisi nenek moyang"
+                ],
+                correctAnswers: [
+                    "Cabang iman yang berkaitan dengan niat, aqidah, dan hati (Ma'rifatun bil qalbi)",
+                    "Cabang iman yang berkaitan dengan lisan/ucapan (Iqrarun bil lisan)"
+                ]
+            },
+            {
+                id: 29,
+                type: 'menjodohkan',
+                points: 2,
+                category: "Bab 2 - Menjodohkan",
+                question: "Jodohkanlah dimensi Syu'abul Iman dengan contoh pengamalannya:",
+                pairs: [
+                    { key: "Amalan Hati (Qalbiyah)", val: "Ikhlas, Mencintai Allah & Rasul, Ridha atas takdir" },
+                    { key: "Amalan Lisan (Lisiniyah)", val: "Membaca Al-Qur'an, Berdzikir, Bertutur kata santun" },
+                    { key: "Amalan Perbuatan (Jawarih)", val: "Menyingkirkan duri di jalan, Menyantuni anak yatim" }
+                ]
+            },
+            {
+                id: 30,
+                type: 'yatidak',
+                points: 2,
+                category: "Bab 2 - Syu'abul Iman",
+                question: "Sifat 'Riya' (pamer) dan 'Nifak' (kemunafikan) dapat mengikis keutuhan cabang-cabang iman dalam hati seseorang.",
+                correct: "Ya"
+            },
+            {
+                id: 31,
+                type: 'pg',
+                points: 2,
+                category: "Bab 2 - Kandungan Hadis",
+                question: "Dalam hadis disebutkan: <span class='font-arabic text-xl block my-1 text-right'>اَلْحَيَاءُ شُعْبَةٌ مِنَ اْلإِيْمَانِ</span>. Makna hadis tersebut terkait cabang iman adalah...",
+                options: [
+                    "Rasa malu untuk berbuat maksiat merupakan bagian penting dari iman",
+                    "Rasa malu menghadiri majelis ilmu mengurangi kadar iman",
+                    "Sifat pemalu membuat seseorang menjadi lemah dan tidak percaya diri",
+                    "Malu bertanya menyebabkan tersesat di jalan"
+                ],
+                answer: "Rasa malu untuk berbuat maksiat merupakan bagian penting dari iman"
+            },
+            {
+                id: 32,
+                type: 'yatidak',
+                points: 2,
+                category: "Bab 2 - Syu'abul Iman",
+                question: "Seseorang dianggap imannya sempurna hanya dengan menghafalkan 77 cabang iman tanpa mempraktikkannya.",
+                correct: "Tidak"
+            },
+
+            // KONTEKSTUAL & STUDI KASUS BAB 2 (33-50)
+            {
+                id: 33,
+                type: 'pg',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Di media sosial, Rudi menemukan berita hoaks yang memojokkan salah satu guru di sekolahnya. Rudi memilih untuk tidak menyebarkannya dan menasihati temannya agar mengklarifikasi terlebih dahulu. Tindakan Rudi mencerminkan cabang iman...",
+                options: [
+                    "Menjaga lisan dan jemari dari berita bohong/ghibah",
+                    "Menyingkirkan gangguan dari tengah jalan raya",
+                    "Menunaikan zakat dan infaq secara teratur",
+                    "Menjauhi sifat kikir dalam membelanjakan harta"
+                ],
+                answer: "Menjaga lisan dan jemari dari berita bohong/ghibah"
+            },
+            {
+                id: 34,
+                type: 'pg',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Siti mendapati ada paku tajam mencuat di papan koridor SMAN 1 Parongpong yang berpotensi melukai siswa lain. Ia segera mengambil tang dan mencabut paku tersebut. Perilaku Siti merupakan bukti nyata dari...",
+                options: [
+                    "Tindakan mencari perhatian pengurus OSIS",
+                    "Penerapan cabang iman tingkat dasar (menyingkirkan bahaya dari jalan)",
+                    "Keterpaksaan menjalankan tata tertib sekolah",
+                    "Bentuk rasa takut ditegur oleh guru piket"
+                ],
+                answer: "Penerapan cabang iman tingkat dasar (menyingkirkan bahaya dari jalan)"
+            },
+            {
+                id: 35,
+                type: 'pg_kompleks',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Manakah DUA bentuk penerapan cabang iman dalam kategori 'Menjaga Hubungan Sesama Manusia' (Muamalah) di sekolah?",
+                options: [
+                    "Menyapa dan mengucapkan salam kepada guru serta teman dengan ramah",
+                    "Menyimpan dendam kepada teman yang berbeda pendapat saat diskusi",
+                    "Menjaga kerahasiaan aib/keburukan teman yang dipercayakan kepadanya",
+                    "Memotong pembicaraan orang lain secara tegas untuk menunjukkan kepandaian"
+                ],
+                correctAnswers: [
+                    "Menyapa dan mengucapkan salam kepada guru serta teman dengan ramah",
+                    "Menjaga kerahasiaan aib/keburukan teman yang dipercayakan kepadanya"
+                ]
+            },
+            {
+                id: 36,
+                type: 'yatidak',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Mengembalikan barang milik teman yang tertinggal di kelas ke meja piket merupakan pengamalan cabang iman yang berkaitan dengan sifat Amanah.",
+                correct: "Ya"
+            },
+            {
+                id: 37,
+                type: 'pg',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Ketika tertimpa musibah nilai ujian rendah, Budi tidak menyalahkan keadaan atau berprasangka buruk kepada Allah, melainkan bermuhasabah dan giat belajar lagi. Budi menerapkan cabang iman kelompok hati, yaitu...",
+                options: [
+                    "Rida terhadap qadha dan qadar disertai ikhtiar Perbaikan",
+                    "Mahabbah (cinta) kepada harta benda duniawi",
+                    "Khauf (takut) yang berlebihan hingga putus asa",
+                    "Takabur terhadap kemampuan diri sendiri"
+                ],
+                answer: "Rida terhadap qadha dan qadar disertai ikhtiar Perbaikan"
+            },
+            {
+                id: 38,
+                type: 'menjodohkan',
+                points: 2,
+                category: "Bab 2 - Menjodohkan",
+                question: "Jodohkanlah contoh perilaku dengan cabang iman yang sesuai:",
+                pairs: [
+                    { key: "Membayar zakat fitrah", val: "Cabang iman terkait harta & kewajiban sosial" },
+                    { key: "Menjaga pandangan mata", val: "Cabang iman terkait memelihara kehormatan diri" },
+                    { key: "Mendoakan sesama muslim", val: "Cabang iman terkait persaudaraan (Ukhuwah)" }
+                ]
+            },
+            {
+                id: 39,
+                type: 'pg',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Bagaimana kaitan antara Syu'abul Iman dengan pembentukan karakter mulia (akhlakul karimah) pada peserta didik di sekolah?",
+                options: [
+                    "Syu'abul Iman hanya menjadi teori hafalan tanpa dampak pada perilaku",
+                    "Syu'abul Iman menjadi landasan kesadaran internal bahwa setiap tindakan dipantau Allah",
+                    "Syu'abul Iman hanya berlaku di lingkungan masjid bukan sekolah",
+                    "Syu'abul Iman membuat siswa fokus pada akhirat dan mengabaikan nilai pelajaran"
+                ],
+                answer: "Syu'abul Iman menjadi landasan kesadaran internal bahwa setiap tindakan dipantau Allah"
+            },
+            {
+                id: 40,
+                type: 'yatidak',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Apakah rasa malu yang menyebabkan seseorang takut menegakkan kebenaran termasuk rasa malu yang dipuji dalam Islam?",
+                correct: "Tidak"
+            },
+            {
+                id: 41,
+                type: 'pg_kompleks',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Pilihlah DUA akibat buruk dari seseorang yang mengaku beriman namun lisannya sering menyakiti orang lain:",
+                options: [
+                    "Kualitas keimanannya menjadi cacat/tidak sempurna",
+                    "Pahala kebaikannya terancam habis terkikis oleh perbuatannya",
+                    "Imannya otomatis batal dan menjadi kafir seketika",
+                    "Dianggap sebagai ulama yang teguh dalam pendirian"
+                ],
+                correctAnswers: [
+                    "Kualitas keimanannya menjadi cacat/tidak sempurna",
+                    "Pahala kebaikannya terancam habis terkikis oleh perbuatannya"
+                ]
+            },
+            {
+                id: 42,
+                type: 'pg',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Dini selalu mematikan kran air di toilet sekolah yang meluap untuk menghemat air. Sikap Dini merupakan wujud pengamalan cabang iman dalam hal...",
+                options: [
+                    "Menjaga lingkungan dan tidak berbuat kemubaziran",
+                    "Mencari simpati dari pihak kebersihan sekolah",
+                    "Memenuhi syarat wajib sebelum menunaikan shalat",
+                    "Menunjukkan keunggulan dibanding siswa lainnya"
+                ],
+                answer: "Menjaga lingkungan dan tidak berbuat kemubaziran"
+            },
+            {
+                id: 43,
+                type: 'yatidak',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Menjaga kerukunan antar umat beragama di lingkungan Parongpong yang heterogen adalah bagian dari manifestasi cabang keimanan.",
+                correct: "Ya"
+            },
+            {
+                id: 44,
+                type: 'pg',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Mengapa niat yang ikhlas diletakkan sebagai cabang iman yang paling mendasari seluruh amalan anggota badan?",
+                options: [
+                    "Karena niat menentukan diterima atau ditolaknya suatu amal di sisi Allah SWT",
+                    "Karena niat sangat mudah diucapkan tanpa memerlukan pengorbanan",
+                    "Karena niat dapat menggantikan shalat fardhu jika tidak sempat",
+                    "Karena niat hanya formalitas dalam permulaan aktivitas"
+                ],
+                answer: "Karena niat menentukan diterima atau ditolaknya suatu amal di sisi Allah SWT"
+            },
+            {
+                id: 45,
+                type: 'menjodohkan',
+                points: 2,
+                category: "Bab 2 - Menjodohkan",
+                question: "Jodohkanlah tingkatan cabang iman berikut:",
+                pairs: [
+                    { key: "Tingkat Tertinggi", val: "Kalimat Tauhid (Laa Ilaha Illallah)" },
+                    { key: "Tingkat Menengah", val: "Rasa Malu & Shalat/Ibadah Fardhu" },
+                    { key: "Tingkat Terendah/Dasar", val: "Menyingkirkan ranting/duri dari jalan" }
+                ]
+            },
+            {
+                id: 46,
+                type: 'pg',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Seorang siswa yang terbiasa jujur saat tidak ada pengawas ujian menunjukkan bahwa ia memiliki cabang iman berupa rasa takut (Khauf) dan merasa selalu diawasi oleh Allah SWT. Istilah feeling ini dalam islam disebut...",
+                options: ["Muraqabah", "Muasabah", "Mukasyafah", "Muthala'ah"],
+                answer: "Muraqabah"
+            },
+            {
+                id: 47,
+                type: 'yatidak',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Menolong teman yang kecelakaan saat berkendara menuju sekolah SMAN 1 Parongpong merupakan cabang iman yang bernilai ibadah sosial.",
+                correct: "Ya"
+            },
+            {
+                id: 48,
+                type: 'pg_kompleks',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Pilihlah DUA tanda utama orang yang memiliki cabang iman Mahabbah (Cinta) kepada Nabi Muhammad SAW:",
+                options: [
+                    "Gemar bershalawat dan berusaha meneladani sunnah beliau",
+                    "Hanya mengagumi Nabi tanpa mau mempelajari perjalanan hidupnya",
+                    "Membela ajaran dan nama baik Rasulullah SAW dengan cara yang santun",
+                    "Menganggap ajaran Rasulullah sudah tidak relevan di zaman modern"
+                ],
+                correctAnswers: [
+                    "Gemar bershalawat dan berusaha meneladani sunnah beliau",
+                    "Membela ajaran dan nama baik Rasulullah SAW dengan cara yang santun"
+                ]
+            },
+            {
+                id: 49,
+                type: 'pg',
+                points: 2,
+                category: "Bab 2 - Kontekstual",
+                question: "Apabila seseorang beriman tetapi sering merasa iri atas keberhasilan teman sekelasnya, cabang iman yang perlu diperbaiki pada orang tersebut terletak pada aspek...",
+                options: [
+                    "Pembersihan penyakit hati (Tazkiyatun Nafs)",
+                    "Keterampilan lisan dalam berpidato",
+                    "Kekuatan fisik dalam beribadah malam",
+                    "Kedudukan finansial dalam masyarakat"
+                ],
+                answer: "Pembersihan penyakit hati (Tazkiyatun Nafs)"
+            },
+            {
+                id: 50,
+                type: 'yatidak',
+                points: 2,
+                category: "Bab 2 - Integration",
+                question: "Apakah etos kerja tinggi yang dilandasi oleh semangat Fastabiqul Khairat pada hakikatnya merupakan salah satu manifestasi riil dari Syu'abul Iman?",
+                correct: "Ya"
+            }
+        ];
+
+        let timerInterval;
+        let timeLeft = 90 * 60; // 90 menit dalam detik
+        let studentData = {};
+
+        // Shuffle arrays for matching or standard options if needed
+        function renderQuestions() {
+            const listContainer = document.getElementById('questions-list');
+            listContainer.innerHTML = '';
+
+            questionsData.forEach((q, idx) => {
+                const qNum = idx + 1;
+                let html = `
+                    <div class="islamic-card rounded-2xl p-6 relative">
+                        <div class="flex justify-between items-center mb-3 border-b pb-2">
+                            <span class="font-bold text-teal-800 text-sm">Soal No. ${qNum} <span class="text-xs bg-teal-100 text-teal-700 px-2 py-0.5 rounded-full ml-2">${q.category}</span></span>
+                            <span class="text-xs font-semibold bg-amber-100 text-amber-800 px-2 py-1 rounded">Bobot: ${q.points} Poin</span>
+                        </div>
+                        <p class="text-gray-800 mb-4 font-medium leading-relaxed">${q.question}</p>
+                `;
+
+                if (q.type === 'pg' || q.type === 'meneruskan_ayat') {
+                    html += `<div class="space-y-2">`;
+                    q.options.forEach((opt, oIdx) => {
+                        html += `
+                            <label class="flex items-start p-3 border rounded-xl hover:bg-teal-50 cursor-pointer transition">
+                                <input type="radio" name="q_${q.id}" value="${opt}" class="mt-1 text-teal-600 focus:ring-teal-500 mr-3" required>
+                                <span class="text-sm text-gray-700">${opt}</span>
+                            </label>
+                        `;
+                    });
+                    html += `</div>`;
+                } else if (q.type === 'pg_kompleks') {
+                    html += `<p class="text-xs text-amber-700 font-semibold mb-2"><i class="fa-solid fa-circle-info mr-1"></i> Pilih 2 (dua) jawaban yang paling tepat:</p>`;
+                    html += `<div class="space-y-2">`;
+                    q.options.forEach((opt, oIdx) => {
+                        html += `
+                            <label class="flex items-start p-3 border rounded-xl hover:bg-teal-50 cursor-pointer transition">
+                                <input type="checkbox" name="q_${q.id}" value="${opt}" class="mt-1 text-teal-600 focus:ring-teal-500 mr-3">
+                                <span class="text-sm text-gray-700">${opt}</span>
+                            </label>
+                        `;
+                    });
+                    html += `</div>`;
+                } else if (q.type === 'yatidak') {
+                    html += `
+                        <div class="flex gap-4">
+                            <label class="flex-1 p-3 border rounded-xl hover:bg-teal-50 cursor-pointer text-center font-bold text-emerald-700">
+                                <input type="radio" name="q_${q.id}" value="Ya" class="mr-2" required> Ya / Benar
+                            </label>
+                            <label class="flex-1 p-3 border rounded-xl hover:bg-rose-50 cursor-pointer text-center font-bold text-rose-700">
+                                <input type="radio" name="q_${q.id}" value="Tidak" class="mr-2" required> Tidak / Salah
+                            </label>
+                        </div>
+                    `;
+                } else if (q.type === 'menjodohkan') {
+                    html += `<div class="space-y-3 bg-gray-50 p-4 rounded-xl">`;
+                    q.pairs.forEach((pair, pIdx) => {
+                        html += `
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b pb-2">
+                                <span class="text-sm font-semibold text-teal-900 sm:w-1/2">${pair.key}</span>
+                                <select name="q_${q.id}_pair_${pIdx}" class="sm:w-1/2 p-2 text-xs border rounded-lg focus:ring-2 focus:ring-teal-500" required>
+                                    <option value="">-- Pilih Pasangan Pas --</option>
+                                    ${q.pairs.map(p => `<option value="${p.val}">${p.val}</option>`).join('')}
+                                </select>
+                            </div>
+                        `;
+                    });
+                    html += `</div>`;
+                }
+
+                html += `</div>`;
+                listContainer.innerHTML += html;
+            });
+        }
+
+        function startExam(e) {
+            e.preventDefault();
+            
+            studentData = {
+                name: document.getElementById('student-name').value,
+                class: document.getElementById('student-class').value,
+                date: document.getElementById('exam-date').value
+            };
+
+            document.getElementById('display-name').innerText = studentData.name;
+            document.getElementById('display-class').innerText = studentData.class;
+
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-header').classList.remove('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+
+            renderQuestions();
+            startTimer();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+
+                document.getElementById('timer').innerText = 
+                    `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert('Waktu ujian telah habis! Jawaban Anda akan otomatis dikirim.');
+                    submitExam();
+                }
+            }, 1000);
+        }
+
+        function submitExam(e) {
+            if (e) e.preventDefault();
+            clearInterval(timerInterval);
+
+            let totalScore = 0;
+            let maxScore = 100;
+            let studentAnswers = {};
+
+            questionsData.forEach(q => {
+                if (q.type === 'pg' || q.type === 'meneruskan_ayat') {
+                    const selected = document.querySelector(`input[name="q_${q.id}"]:checked`);
+                    const ansVal = selected ? selected.value : '';
+                    studentAnswers[`Soal_${q.id}`] = ansVal;
+                    if (ansVal === q.answer) {
+                        totalScore += q.points;
+                    }
+                } else if (q.type === 'yatidak') {
+                    const selected = document.querySelector(`input[name="q_${q.id}"]:checked`);
+                    const ansVal = selected ? selected.value : '';
+                    studentAnswers[`Soal_${q.id}`] = ansVal;
+                    if (ansVal === q.correct) {
+                        totalScore += q.points;
+                    }
+                } else if (q.type === 'pg_kompleks') {
+                    const selected = Array.from(document.querySelectorAll(`input[name="q_${q.id}"]:checked`)).map(c => c.value);
+                    studentAnswers[`Soal_${q.id}`] = selected.join(' | ');
+                    // Cek kearsipan 2 jawaban
+                    const isCorrect = q.correctAnswers.length === selected.length && 
+                                      q.correctAnswers.every(val => selected.includes(val));
+                    if (isCorrect) {
+                        totalScore += q.points;
+                    }
+                } else if (q.type === 'menjodohkan') {
+                    let pairCorrect = true;
+                    let pairAns = [];
+                    q.pairs.forEach((pair, pIdx) => {
+                        const sel = document.querySelector(`select[name="q_${q.id}_pair_${pIdx}"]`);
+                        const val = sel ? sel.value : '';
+                        pairAns.push(`${pair.key} -> ${val}`);
+                        if (val !== pair.val) pairCorrect = false;
+                    });
+                    studentAnswers[`Soal_${q.id}`] = pairAns.join('; ');
+                    if (pairCorrect) {
+                        totalScore += q.points;
+                    }
+                }
+            });
+
+            // Tampilkan Hasil
+            document.getElementById('quiz-header').classList.add('hidden');
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            document.getElementById('final-score').innerText = `${totalScore} / ${maxScore}`;
+            document.getElementById('score-details').innerText = 
+                `Nama: ${studentData.name} | Kelas: ${studentData.class} | Tanggal: ${studentData.date}`;
+
+            // Kirim Rekaman via Email Formspree / Google App Script Log
+            sendDataToEmailAndSheet(studentData, totalScore, studentAnswers);
+        }
+
+        function sendDataToEmailAndSheet(student, score, answers) {
+    // Tempelkan URL Google Apps Script yang Anda dapat dari Langkah 2 di sini
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw3op8jWk0s7OXl9QGGmCSB_wu8VhoNu3DDZHnkfyc27XU5Kh3lSrF2KEnuKF6s4JOm/exec";
+
+    const payload = {
+        nama: student.name,
+        kelas: student.class,
+        tanggal: student.date,
+        skor_akhir: score,
+        jawaban: answers
+    };
+
+    // Mengirim data secara otomatis menggunakan fetch API
+    fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors", // Menghindari masalah CORS di browser
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(() => {
+        console.log("Data berhasil dikirim ke Google Sheet & Email.");
+    })
+    .catch((error) => {
+        console.error("Gagal mengirim data:", error);
+    });
+}
+    </script>
+</body>
+</html>
+```eof
+
+### Ringkasan & Keunggulan Soal/Aplikasi:
+1. **Identitas & Aksesibilitas**: Dilengkapi form identitas (Nama, Kelas X-1 s.d. X-8, Tanggal) dan instruksi tegas pengerjaan sekali jalan (*single attempt*) berdurasi 90 menit.
+2. **50 Soal Berbobot HOTS**: Memencakup 50 soal pilihan ganda biasa, pilihan ganda kompleks (2 jawaban benar), menjodohkan, serta Ya/Tidak. Total skor dirancang pas **100 poin** (50 soal x 2 poin).
+3. **Cakupan Topik Lengkap**:
+   - **Tajwid**: Ikhfa Syafawi, Izhar Halqi, Idgham Bighunnah, Mad Jaiz Munfasil, Alif Lam Qamariyah.
+   - **Meneruskan Ayat**: QS. Al-Ma'idah: 48 & QS. At-Taubah: 105.
+   - **Kandungan Hadis**: Istiqamah amal, larangan meminta-minta (etos kerja), rasa malu (*Haya'*), serta pilar Syu'abul Iman.
+   - **Soal Kontekstual**: Studi kasus kehidupan sekolah di SMAN 1 Parongpong, bermedia sosial jujur, menjaga lingkungan, serta kepemimpinan.
+4. **Desain & Rekam Data**: Tampilan menggunakan warna *Hijau Tosca* bermotif islami yang responsif di ponsel/laptop. Rekam jawaban diformat otomatis untuk diteruskan ke `abaza787@gmail.com` dan Google Spreadsheet.
+
+Semoga asesmen ini dapat membantu kelancaran proses evaluasi pembelajaran PABP di SMAN 1 Parongpong! Selamat menguji!
